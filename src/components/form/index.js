@@ -16,11 +16,11 @@ function Form ({handleApiCall}) {
     handleApiCall(formData);
   }
 
-  function getUrl(url){
+  function handleUrl(url){
     setURL(url)
   }
 
-  function getMethod(e) {
+  function handleMethod(e) {
     e.target.className
     ? e.target.className = ''
     : e.target.className = 'active';
@@ -34,14 +34,14 @@ function Form ({handleApiCall}) {
         <form onSubmit={handleSubmit}>
           <label >
             <span>URL: </span>
-            <input name='url' onChange={(e)=>getUrl(e.target.value)} type='text'/>
+            <input name='url' onChange={(e)=>handleUrl(e.target.value)} type='text'/>
             <button type="submit" data-testid="mybtn">GO!</button>
           </label>
           <label className="methods">
-            <span onClick={getMethod} id="get">GET</span>
-            <span onClick={getMethod} id="post">POST</span>
-            <span onClick={getMethod} id="put">PUT</span>
-            <span onClick={getMethod} id="delete">DELETE</span>
+            <span onClick={handleMethod} id="get">GET</span>
+            <span onClick={handleMethod} id="post">POST</span>
+            <span onClick={handleMethod} id="put">PUT</span>
+            <span onClick={handleMethod} id="delete">DELETE</span>
           </label>
           {textArea && <textarea></textarea>}
         </form>
