@@ -1,5 +1,5 @@
+import axios from 'axios';
 import React,{useState} from 'react';
-
 import './form.scss';
 
 function Form ({handleApiCall}) {
@@ -7,13 +7,18 @@ function Form ({handleApiCall}) {
     const [method, setMethod] = useState('GET');
     const [textArea, setTextArea] = useState(false);
 
-  function handleSubmit(e){
+  async function handleSubmit(e){
     e.preventDefault();
+    const values=await axios({
+      method:e.target.id,
+      url:URL
+    })
+
     const formData = {
       method:method,
       url:URL
     };
-    handleApiCall(formData);
+    handleApiCall(formData,values);
   }
 
   function handleUrl(url){
@@ -38,10 +43,10 @@ function Form ({handleApiCall}) {
             <button type="submit" data-testid="mybtn">GO!</button>
           </label>
           <label className="methods">
-            <span onClick={handleMethod} id="get">GET</span>
-            <span onClick={handleMethod} id="post">POST</span>
-            <span onClick={handleMethod} id="put">PUT</span>
-            <span onClick={handleMethod} id="delete">DELETE</span>
+        <button type="button" id="get" onClick={handleMethod}>GET</button>
+        <button type="button" id="post" onClick={handleMethod}>POST</button>
+        <button type="button" id="put" onClick={handleMethod}>PUT</button>
+        <button type="button" id="delete" onClick={handleMethod}>DELETE</button>
           </label>
           {textArea && <textarea></textarea>}
         </form>

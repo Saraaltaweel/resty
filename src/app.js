@@ -11,16 +11,19 @@ function App (){
   const [state, setState] = useState({ data: null,requestParams: {} });
   
 
-  function callApi(requestParams) {
+  function callApi(requestParams,values) {
     // mock output
     const data = {
+      Headers: {
+        "cache-control": 'string no-cache'
+      },
       count: 2,
       results: [
         {name: 'fake thing 1', url: 'http://fakethings.com/1'},
         {name: 'fake thing 2', url: 'http://fakethings.com/2'},
       ],
     };
-    setState({data, requestParams});
+    setState({data: values, requestParams});
   }
 
  
