@@ -13,10 +13,10 @@ function Results(props) {
           <JSONPretty theme={JSONPrettyMon} data={props.data.headers} />
 
           "Count : "
-          <JSONPretty theme={JSONPrettyMon} data={props.data.data.count} />
+          <JSONPretty theme={JSONPrettyMon} data={props.data.count} />
 
           "Results : "
-          <JSONPretty theme={JSONPrettyMon} data={props.data.data.results} />
+          <JSONPretty theme={JSONPrettyMon} data={props.data.results} />
         </>
       }
     </div>
