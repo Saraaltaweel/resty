@@ -8,7 +8,7 @@ import Form from './components/form';
 import Results from './components/results';
 import React, { useState } from 'react';
 function App (){
-  const [state, setState] = useState({ data: null,requestParams: {} });
+  const [state, setState] = useState({ data: null,requestParams: {} , view:false });
   
 
   function callApi(requestParams,values) {
@@ -23,7 +23,7 @@ function App (){
         {name: 'fake thing 2', url: 'http://fakethings.com/2'},
       ],
     };
-    setState({data: values, requestParams});
+    setState({data: values, requestParams , view : true});
   }
 
  
@@ -33,7 +33,11 @@ function App (){
         <div>Request Method: {state.requestParams.method}</div>
         <div>URL: {state.requestParams.url}</div>
         <Form handleApiCall={callApi} />
+        {state.view && (
+          <section>
         <Results data={state.data} />
+        </section>
+        )}
         <Footer />
       </React.Fragment>
     );
