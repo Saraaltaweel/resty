@@ -39,16 +39,16 @@ function Form ({handleApiCall}) {
         <form onSubmit={handleSubmit}>
           <label >
             <span>URL: </span>
-            <input name='url' onChange={(e)=>handleUrl(e.target.value)} type='text'/>
-            <button type="submit" data-testid="mybtn">GO!</button>
+            <input name='url' type='text' onChange={(e)=>handleUrl(e.target.value)} />
+            <button  data-testid="mybtn" type="submit">GO!</button>
           </label>
           <label className="methods">
-        <button type="button" id="get" onClick={handleMethod}>GET</button>
+        <button type="button" id="get" onClick={handleMethod} >GET</button>
         <button type="button" id="post" onClick={handleMethod}>POST</button>
         <button type="button" id="put" onClick={handleMethod}>PUT</button>
         <button type="button" id="delete" onClick={handleMethod}>DELETE</button>
           </label>
-          {textArea && <textarea></textarea>}
+          {textArea && <textarea cols='50' rows='4'></textarea>}
         </form>
       </>
     );
