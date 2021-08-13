@@ -2,8 +2,8 @@ import React ,{useState}from 'react';
 import Loader from '../loading';
 import JSONPretty from 'react-json-pretty';
 import 'react-json-pretty/themes/monikai.css';
-var JSONPrettyMon = require('react-json-pretty/dist/monikai');
-
+// var JSONPrettyMon = require('react-json-pretty/dist/monikai');
+var JSONPrettyMon = require('react-json-pretty/dist/1337');
 
 function Results(props) {
   const [loader, setLoading] = useState(true);
