@@ -38,7 +38,7 @@ function App (){
         url:requestParams.url
       })
       setData(data.data);
-      setCount(data.count);
+      setCount(data.data.count);
       setHeaders(data.headers);
 
     }catch (error) {
