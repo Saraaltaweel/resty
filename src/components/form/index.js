@@ -2,36 +2,40 @@ import axios from 'axios';
 import React,{useState} from 'react';
 import './form.scss';
 
-function Form ({handleApiCall}) {
-    const [URL, setURL] = useState('');
+function Form (props) {
+    const [URL, setURL] = useState('https://pokeapi.co/api/v2/pokemon');
     const [method, setMethod] = useState('GET');
     const [textArea, setTextArea] = useState(false);
+    const [inputText, setInputText] = useState('');
 
   async function handleSubmit(e){
     e.preventDefault();
-    const values=await axios({
-      method:e.target.id,
-      url:URL
-    })
-
-    const formData = {
+    // const values=await axios({
+    //   method:e.target.id,
+    //   url:URL
+    // })
+     const formData = {
       method:method,
       url:URL
     };
-    handleApiCall(formData,values);
+ 
+    props.handleApiCall(formData);
   }
 
   function handleUrl(url){
     setURL(url)
   }
 
-  function handleMethod(e) {
+  async function handleMethod(e) {
     e.target.className
     ? e.target.className = ''
     : e.target.className = 'active';
     
-    setMethod(e.target.id);
+   await setMethod(e.target.id);
     e.target.id === 'post' || e.target.id === 'put' ? setTextArea(true) : setTextArea(false)
+  }
+  function handleInputText(e) {
+    setInputText(e.target.value)
   }
 
     return (
@@ -39,7 +43,7 @@ function Form ({handleApiCall}) {
         <form onSubmit={handleSubmit}>
           <label >
             <span>URL: </span>
-            <input name='url' type='text' onChange={(e)=>handleUrl(e.target.value)} />
+            <input name='url' type='text' onChange={(e)=>handleUrl(e.target.id)} />
             <button  data-testid="mybtn" type="submit">GO!</button>
           </label>
           <label className="methods">
@@ -48,7 +52,7 @@ function Form ({handleApiCall}) {
         <button type="button" id="put" onClick={handleMethod}>PUT</button>
         <button type="button" id="delete" onClick={handleMethod}>DELETE</button>
           </label>
-          {textArea && <textarea cols='50' rows='4'></textarea>}
+          {textArea && <textarea cols='50' rows='4'onChange={handleInputText}></textarea>}
         </form>
       </>
     );
