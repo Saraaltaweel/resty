@@ -6,8 +6,12 @@ import Header from './components/header';
 import Footer from './components/footer';
 import Form from './components/form';
 import Results from './components/results';
-import React, { useState, useEffect } from 'react';
+import History from './components/history/history';
+import React, { useState, useEffect, useReducer } from 'react';
 import axios from 'axios';
+
+const initialState=[]; 
+
 function App (){
   const [state, setState] = useState({requestParams: {} , view:false });
   
@@ -15,9 +19,14 @@ function App (){
   const [count, setCount] = useState('');
   const [data, setData] = useState(null);
   const [requestParams, setrequestParams] = useState({});
+  const [history, setHistory] = useState([])
+  const [red, dispatch] = useReducer(reducer, initialState)
+
 
   function callApi(params) {
     setrequestParams(params);
+    setHistory([...history, params]);
+
         // mock output
   //   const data = {
   //     Headers: {
@@ -40,7 +49,7 @@ function App (){
       setData(data.data);
       setCount(data.data.count);
       setHeaders(data.headers);
-
+      dispatch(addToHistory(requestParams.url,requestParams.method,data));
     }catch (error) {
     console.log(error.message)
     setData(null)
@@ -52,6 +61,32 @@ function App (){
   }, [requestParams])
 
 
+  function reducer(history=initialState,action){
+    const {type,payload}=action;
+    switch (type) {
+      case 'AddToHistory':
+        console.log(history);
+        history=[...history,payload];
+        return history;
+      default:
+        return history;
+    }
+  }  
+  function addToHistory(url,method,result){
+  
+    return({
+      type:'AddToHistory',
+      payload:{
+        url,
+        method,
+        result
+      }
+    })
+  } 
+
+  function historyfunction(result){
+    setData(result);
+  }
  
     return (
       <React.Fragment>
@@ -59,6 +94,9 @@ function App (){
         <div>Request Method: {requestParams.method}</div>
         <div>URL: {requestParams.url}</div>
         <Form handleApiCall={callApi} />
+        
+        <History historyfunction={historyfunction} history={history} />
+       
         {state.view && (
           <section>
         <Results data={{results:data,headers:headers,count:count}} />
