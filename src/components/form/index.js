@@ -3,7 +3,7 @@ import React,{useState} from 'react';
 import './form.scss';
 
 function Form (props) {
-    const [URL, setURL] = useState('https://pokeapi.co/api/v2/pokemon');
+    const [URL, setURL] = useState('');
     const [method, setMethod] = useState('GET');
     const [textArea, setTextArea] = useState(false);
     const [inputText, setInputText] = useState('');
@@ -35,7 +35,7 @@ function Form (props) {
     e.target.id === 'post' || e.target.id === 'put' ? setTextArea(true) : setTextArea(false)
   }
   function handleInputText(e) {
-    setInputText(e.target.value)
+    setInputText(e.target.id)
   }
 
     return (
@@ -43,7 +43,7 @@ function Form (props) {
         <form onSubmit={handleSubmit}>
           <label >
             <span>URL: </span>
-            <input name='url' type='text' onChange={(e)=>handleUrl(e.target.id)} />
+            <input name='url' type='text' onChange={(e)=>handleUrl(e.target.value)} />
             <button  data-testid="mybtn" type="submit">GO!</button>
           </label>
           <label className="methods">
